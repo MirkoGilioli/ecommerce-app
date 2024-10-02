@@ -13,6 +13,12 @@ RUN npm install
 # Copy the rest of the application code to the container
 COPY . .
 
+# Inject environment variables at build time
+ARG REACT_APP_PRODUCT_SERVICE_URL
+ARG REACT_APP_CART_SERVICE_URL
+ARG REACT_APP_ORDER_SERVICE_URL
+ARG REACT_APP_USER_SERVICE_URL
+
 # Build the React application
 RUN npm run build
 

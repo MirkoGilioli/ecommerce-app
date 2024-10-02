@@ -7,11 +7,14 @@ const CartPage = () => {
   const [cartItems, setCartItems] = useState([]);
   const userId = "1";  // Mocked user ID, you can dynamically set this in a real-world scenario
 
+  // Using the environment variable for the Cart Service URL
+  const CART_SERVICE_URL = process.env.REACT_APP_CART_SERVICE_URL;
+
   useEffect(() => {
     // Fetch cart items from the cart-service
     const fetchCartItems = async () => {
       try {
-        const response = await axios.get(`https://cart-service-10295615397.us-west1.run.app/cart/${userId}`);
+        const response = await axios.get(`${CART_SERVICE_URL}/cart/${userId}`);
         setCartItems(response.data);
       } catch (error) {
         console.error('Error fetching cart items:', error);
@@ -19,11 +22,11 @@ const CartPage = () => {
     };
 
     fetchCartItems();
-  }, []);
+  }, [CART_SERVICE_URL, userId]);
 
   const handleRemoveItem = async (productId) => {
     try {
-      await axios.delete(`https://cart-service-10295615397.us-west1.run.app/cart/${userId}/${productId}`);
+      await axios.delete(`${CART_SERVICE_URL}/cart/${userId}/${productId}`);
       setCartItems(cartItems.filter(item => item.id !== productId));
     } catch (error) {
       console.error('Error removing item from cart:', error);

@@ -1,3 +1,4 @@
+// src/components/OrderForm.js
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import '../App.css';
@@ -7,16 +8,20 @@ const OrderForm = () => {
   const [selectedProduct, setSelectedProduct] = useState('');
   const [quantity, setQuantity] = useState(1);
 
+  // Using environment variables for Product and Order Service URLs
+  const PRODUCT_SERVICE_URL = process.env.REACT_APP_PRODUCT_SERVICE_URL;
+  const ORDER_SERVICE_URL = process.env.REACT_APP_ORDER_SERVICE_URL;
+
   useEffect(() => {
-    // Fetch products for the order form  axios.get('http://product-service:5001/products')
-    axios.get('https://product-service-10295615397.us-west1.run.app/products')
+    // Fetch products for the order form
+    axios.get(`${PRODUCT_SERVICE_URL}/products`)
       .then(response => {
         setProducts(response.data);
       })
       .catch(error => {
         console.error("Error fetching products!", error);
       });
-  }, []);
+  }, [PRODUCT_SERVICE_URL]);
 
   const handleOrderSubmit = () => {
     const order = {
@@ -24,8 +29,8 @@ const OrderForm = () => {
       quantity: quantity
     };
 
-    // Post order to the Order Service     axios.post('http://order-service:5002/orders', order)
-    axios.post('https://order-service-10295615397.us-west1.run.app/orders', order)
+    // Post order to the Order Service
+    axios.post(`${ORDER_SERVICE_URL}/orders`, order)
       .then(response => {
         alert('Order placed successfully!');
       })
