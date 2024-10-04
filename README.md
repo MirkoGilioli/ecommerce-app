@@ -1,7 +1,3 @@
-Here's a sample README file for your eCommerce microservices project. Feel free to customize it based on your specific requirements or additional details you might want to include.
-
----
-
 # eCommerce Microservices Project
 
 ## Table of Contents
