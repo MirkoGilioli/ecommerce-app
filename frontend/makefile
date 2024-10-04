@@ -1,5 +1,5 @@
 # Define variables
-IMAGE_NAME=<YOUR FRONTEND REPO ON ARTIFACT REGISTRY>
+IMAGE_NAME=us-west1-docker.pkg.dev/qwiklabs-gcp-00-c55ec339bc43/frontend/frontend
 TAG=latest
 ENV_FILE=.env
 
