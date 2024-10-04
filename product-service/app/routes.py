@@ -22,9 +22,21 @@ initial_products = [
 for product in initial_products:
     products_ref.document(product['id']).set(product)
 
+# Initialize a request counter
+request_counter = 0
+
 # Route to get all products from Firestore
 @product_routes.route('/products', methods=['GET'])
 def get_products():
+    global request_counter  # Use the global counter
+
+    # Increment the request counter
+    request_counter += 1
+
+    # Simulate failure every 10 requests
+    if request_counter % 10 == 0:
+        return jsonify({"error": "Simulated failure: An error occurred while fetching products"}), 500
+
     try:
         # Fetch all products from Firestore
         products = [doc.to_dict() for doc in products_ref.stream()]
