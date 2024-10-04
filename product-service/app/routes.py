@@ -11,6 +11,17 @@ db = firestore.Client()
 # Firestore collection reference
 products_ref = db.collection('products')
 
+# Add initial products to Firestore
+initial_products = [
+    {'id': '001', 'name': 'Apple iPad Pro', 'price': 799},
+    {'id': '002', 'name': 'Apple iPhone Pro', 'price': 1400},
+    {'id': '003', 'name': 'Macbook Pro', 'price': 1999}
+]
+
+# Insert initial products into Firestore
+for product in initial_products:
+    products_ref.document(product['id']).set(product)
+
 # Route to get all products from Firestore
 @product_routes.route('/products', methods=['GET'])
 def get_products():
