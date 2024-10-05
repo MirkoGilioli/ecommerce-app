@@ -1,6 +1,7 @@
 from flask import Blueprint, jsonify, request
 from google.cloud import firestore
 import uuid
+import random
 
 # Define the product routes
 product_routes = Blueprint('product_routes', __name__)
@@ -22,19 +23,13 @@ initial_products = [
 for product in initial_products:
     products_ref.document(product['id']).set(product)
 
-# Initialize a request counter
-request_counter = 0
 
 # Route to get all products from Firestore
 @product_routes.route('/products', methods=['GET'])
 def get_products():
-    global request_counter  # Use the global counter
-
-    # Increment the request counter
-    request_counter += 1
 
     # Simulate failure every 10 requests
-    if request_counter % 10 == 0:
+    if random.random() < 0.1:
         return jsonify({"error": "Simulated failure: An error occurred while fetching products"}), 500
 
     try:

@@ -3,6 +3,7 @@ package handlers
 import (
     "encoding/json"
     "net/http"
+    "math/rand"
     "strconv"
 	"github.com/gorilla/mux"
 )
@@ -18,10 +19,16 @@ type User struct {
 var users = []User{
     {ID: 1, Name: "Alice", Email: "alice@example.com"},
     {ID: 2, Name: "Bob", Email: "bob@example.com"},
+    {ID: 2, Name: "Carl", Email: "carl@example.com"},
 }
 
 // GetUsers returns all users
 func GetUsers(w http.ResponseWriter, r *http.Request) {
+    // Simulate random failure on average every 10 requests
+    if rand.Float32() < 0.1 { // 10% chance of failure
+        http.Error(w, "Simulated failure: An error occurred while fetching user", http.StatusInternalServerError)
+        return
+    }
     w.Header().Set("Content-Type", "application/json")
     json.NewEncoder(w).Encode(users)
 }
@@ -39,6 +46,12 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 // GetUserByID returns a user by their ID
 func GetUserByID(w http.ResponseWriter, r *http.Request) {
     w.Header().Set("Content-Type", "application/json")
+
+    // Simulate random failure on average every 10 requests
+    if rand.Float32() < 0.1 { // 10% chance of failure
+        http.Error(w, "Simulated failure: An error occurred while fetching user", http.StatusInternalServerError)
+        return
+    }
 
     // Get the "id" from the URL path variables
     vars := mux.Vars(r)

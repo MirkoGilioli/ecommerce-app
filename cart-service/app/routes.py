@@ -1,6 +1,7 @@
 from flask import Blueprint, jsonify, request
 from google.cloud import firestore
 import uuid
+import random
 
 # Define cart routes
 cart_routes = Blueprint('cart_routes', __name__)
@@ -49,6 +50,9 @@ def add_to_cart(user_id):
 # Route to get the cart for a user
 @cart_routes.route('/cart/<string:user_id>', methods=['GET'])
 def get_cart_items(user_id):
+    # Simulate failure every 10 requests
+    if random.random() < 0.1:
+        return jsonify({"error": "Simulated failure: An error occurred while fetching products"}), 500
     try:
         # Get the user's cart items from Firestore
         cart_items = get_cart(user_id)

@@ -1,14 +1,18 @@
+/* Universal styling for margin, padding, and box-sizing */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
+/* Global body styles */
 body {
   font-family: 'Arial', sans-serif;
   background-color: #f4f4f4;
+  line-height: 1.6;
 }
 
+/* Navigation styles */
 nav {
   background-color: #007bff;
   padding: 1rem;
@@ -24,12 +28,14 @@ nav ul li a {
   color: white;
   text-decoration: none;
   font-size: 1.2rem;
+  transition: color 0.3s ease;
 }
 
 nav ul li a:hover {
   text-decoration: underline;
 }
 
+/* Main container styling */
 .container {
   margin: 20px auto;
   max-width: 1200px;
@@ -39,11 +45,13 @@ nav ul li a:hover {
   border-radius: 8px;
 }
 
+/* Header styles */
 h1 {
   text-align: center;
   margin-bottom: 20px;
 }
 
+/* Product list styles */
 ul.product-list {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -51,6 +59,7 @@ ul.product-list {
   padding: 0;
 }
 
+/* Individual product card styling */
 ul.product-list li {
   list-style: none;
   padding: 20px;
@@ -59,18 +68,21 @@ ul.product-list li {
   border-radius: 8px;
   text-align: center;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease;
 }
 
 ul.product-list li:hover {
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
 }
 
+/* Product card text styling */
 ul.product-list li p {
   margin: 10px 0;
   font-size: 1rem;
   color: #333;
 }
 
+/* Button styling */
 button {
   background-color: #007bff;
   color: white;
@@ -78,12 +90,14 @@ button {
   padding: 10px 15px;
   border-radius: 5px;
   cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
 button:hover {
   background-color: #0056b3;
 }
 
+/* Form elements styling (select dropdowns and number inputs) */
 select, input[type="number"] {
   width: 100%;
   padding: 10px;
@@ -93,6 +107,7 @@ select, input[type="number"] {
   border: 1px solid #ddd;
 }
 
+/* Footer styling */
 footer {
   margin-top: 40px;
   text-align: center;
@@ -101,8 +116,7 @@ footer {
   color: white;
 }
 
-/* src/App.css */
-
+/* Cart item styling */
 .cart-item {
   border: 1px solid #ccc;
   margin: 10px;
@@ -114,6 +128,7 @@ footer {
   margin: 0;
 }
 
+/* Cart button styling */
 .cart-item button {
   background-color: #ff4c4c;
   color: white;
@@ -121,9 +136,9 @@ footer {
   padding: 5px 10px;
   border-radius: 3px;
   cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
 .cart-item button:hover {
   background-color: #e60000;
 }
-
