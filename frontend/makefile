@@ -1,10 +1,28 @@
 # Define variables
-IMAGE_NAME=us-west1-docker.pkg.dev/qwiklabs-gcp-00-c55ec339bc43/frontend/frontend
+IMAGE_NAME=<MUST BE FILLED WITH THE FRONTEND ARTIFACT REPO NAME>
 TAG=latest
 ENV_FILE=.env
 
 # Default target: build and push the Docker image
-all: build push
+all: update_env build push
+
+# Step to backfill backend URLs in the .env file
+update_env:
+	@echo "Updating backend URLs in .env file..."
+	@SERVICES="cart-service product-service order-service user-service"; \
+	for service in $$SERVICES; do \
+	  URL=$$(gcloud run services list --filter="$$service" --format="value(URL)"); \
+	  if [ "$$service" = "cart-service" ]; then \
+	    sed -i "s|^REACT_APP_CART_SERVICE_URL=.*|REACT_APP_CART_SERVICE_URL=$${URL}|" $(ENV_FILE); \
+	  elif [ "$$service" = "product-service" ]; then \
+	    sed -i "s|^REACT_APP_PRODUCT_SERVICE_URL=.*|REACT_APP_PRODUCT_SERVICE_URL=$${URL}|" $(ENV_FILE); \
+	  elif [ "$$service" = "order-service" ]; then \
+	    sed -i "s|^REACT_APP_ORDER_SERVICE_URL=.*|REACT_APP_ORDER_SERVICE_URL=$${URL}|" $(ENV_FILE); \
+	  elif [ "$$service" = "user-service" ]; then \
+	    sed -i "s|^REACT_APP_USER_SERVICE_URL=.*|REACT_APP_USER_SERVICE_URL=$${URL}|" $(ENV_FILE); \
+	  fi; \
+	done
+	@echo ".env file updated."
 
 # Read environment variables from .env file and build the Docker image
 build:
